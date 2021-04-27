@@ -19,39 +19,37 @@ namespace GradeBook.GradeBooks
 
         #region Methods
 
+        /// <summary>
+        /// Count how many students is 20%. 
+        /// Trying to loop through the count and checking how many students have grade above mine. Reduce grade by 1 every 20%.
+        /// </summary>
+        /// <param name="averageGrade">Compared grade</param>
+        /// <returns></returns>
         public override char GetLetterGrade(double averageGrade)
         {
-            // Implementation
-            List<Student> rankedList = GenerateRankedStudentList();
-            int twentySplit = CalculateTwentyPercent(rankedList);
+            if (Students.Count < 5)
+                throw new Exception("Ranked grading requires at least 5 students.");
+            
+            int twentyPercent = Students.Count / 5 ;
+            int countGradesAbove = 0;
 
-            if (averageGrade >= rankedList[twentySplit - 1].AverageGrade)
+            foreach (Student student in Students)
+            {
+                if (student.AverageGrade > averageGrade)
+                    countGradesAbove++;
+            }
+
+            if (countGradesAbove < twentyPercent)
                 return 'A';
-            else if (averageGrade >= rankedList[(twentySplit * 2) - 1].AverageGrade)
+            else if (countGradesAbove < twentyPercent * 2)
                 return 'B';
-            else if (averageGrade >= rankedList[(twentySplit * 3) - 1].AverageGrade)
+            else if (countGradesAbove < twentyPercent * 3)
                 return 'C';
-            else if (averageGrade >= rankedList[(twentySplit * 4) - 1].AverageGrade)
+            else if (countGradesAbove < twentyPercent * 4)
                 return 'D';
             else
                 return 'F';
-        }
 
-        public List<Student> GenerateRankedStudentList()
-        {
-            List<Student> rankedStudentList = new List<Student>();
-
-            foreach (Student student in Students.OrderByDescending(student => student.AverageGrade))
-            {
-                rankedStudentList.Add(student);
-            }
-
-            return rankedStudentList;
-        }
-
-        public int CalculateTwentyPercent(List<Student> list)
-        {
-            return (list.Count / 5);
         }
 
         public override void CalculateStatistics()
