@@ -31,7 +31,7 @@ namespace GradeBook.GradeBooks
 
                 int twentyPercent = Students.Count / 5;
                 int countGradesAbove = 0;
-                int OneFifthsAbove = 0;
+                int oneFifthsAbove = 0;
 
                 foreach (Student student in Students)
                 {
@@ -39,17 +39,17 @@ namespace GradeBook.GradeBooks
                         countGradesAbove++;
 
                     if (countGradesAbove == twentyPercent)
-                        OneFifthsAbove++;
+                        oneFifthsAbove++;
                         countGradesAbove = 0;
                 }
 
-                if (OneFifthsAbove == 0)
+                if (oneFifthsAbove == 0)
                     return 'A';
-                else if (OneFifthsAbove == 1)
+                else if (oneFifthsAbove == 1)
                     return 'B';
-                else if (OneFifthsAbove == 2)
+                else if (oneFifthsAbove == 2)
                     return 'C';
-                else if (OneFifthsAbove == 3)
+                else if (oneFifthsAbove == 3)
                     return 'D';
                 else
                     return 'F';
