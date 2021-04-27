@@ -27,28 +27,40 @@ namespace GradeBook.GradeBooks
         /// <returns></returns>
         public override char GetLetterGrade(double averageGrade)
         {
-            if (Students.Count < 5)
-                throw new InvalidOperationException();
-            
-            int twentyPercent = Students.Count / 5 ;
-            int countGradesAbove = 0;
-
-            foreach (Student student in Students)
+            try
             {
-                if (student.AverageGrade > averageGrade)
-                    countGradesAbove++;
-            }
+                if (Students.Count < 5)
+                    throw new InvalidOperationException();
 
-            if (countGradesAbove < twentyPercent)
-                return 'A';
-            else if (countGradesAbove < twentyPercent * 2)
-                return 'B';
-            else if (countGradesAbove < twentyPercent * 3)
-                return 'C';
-            else if (countGradesAbove < twentyPercent * 4)
-                return 'D';
-            else
-                return 'F';
+                int twentyPercent = Students.Count / 5;
+                int countGradesAbove = 0;
+                int OneFifthsAbove = 0;
+
+                foreach (Student student in Students)
+                {
+                    if (student.AverageGrade > averageGrade)
+                        countGradesAbove++;
+
+                    if (countGradesAbove == twentyPercent)
+                        OneFifthsAbove++;
+                        countGradesAbove = 0;
+                }
+
+                if (OneFifthsAbove == 0)
+                    return 'A';
+                else if (OneFifthsAbove == 1)
+                    return 'B';
+                else if (OneFifthsAbove == 2)
+                    return 'C';
+                else if (OneFifthsAbove == 3)
+                    return 'D';
+                else
+                    return 'F';
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
 
         }
 
