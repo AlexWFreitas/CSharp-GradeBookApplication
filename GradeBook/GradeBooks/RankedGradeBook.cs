@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GradeBook.Enums;
-using System.Linq;
+﻿using GradeBook.Enums;
+using System;
 
 namespace GradeBook.GradeBooks
 {
@@ -30,7 +27,7 @@ namespace GradeBook.GradeBooks
             try
             {
                 if (Students.Count < 5)
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException("Ranked grading requires at least 5 students.");
 
                 int twentyPercent = Students.Count / 5;
                 int countGradesAbove = 0;
@@ -66,18 +63,32 @@ namespace GradeBook.GradeBooks
 
         public override void CalculateStatistics()
         {
+            try
+            { 
             if (Students.Count < 5)
-                Console.WriteLine("Ranked grading requires at least 5 students.");
+                throw new InvalidOperationException("Ranked grading requires at least 5 students.");
             else
                 base.CalculateStatistics();
-        }
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+}
 
         public override void CalculateStudentStatistics(string name)
         {
+            try
+            {
             if (Students.Count < 5)
-                Console.WriteLine("Ranked grading requires at least 5 students.");
+                throw new InvalidOperationException("Ranked grading requires at least 5 students.");
             else
                 base.CalculateStudentStatistics(name);
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
         }
 
         #endregion

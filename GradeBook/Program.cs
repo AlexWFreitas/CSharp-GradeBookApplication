@@ -7,15 +7,22 @@ namespace GradeBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("#=======================#");
-            Console.WriteLine("# Welcome to GradeBook! #");
-            Console.WriteLine("#=======================#");
+            try
+            {
+                Console.WriteLine("#=======================#");
+                Console.WriteLine("# Welcome to GradeBook! #");
+                Console.WriteLine("#=======================#");
 
-            StartingUserInterface.CommandLoop();
-            
-            Console.WriteLine("Thank you for using GradeBook!");
-            Console.WriteLine("Have a nice day!");
-            Console.Read();
+                StartingUserInterface.CommandLoop();
+
+                Console.WriteLine("Thank you for using GradeBook!");
+                Console.WriteLine("Have a nice day!");
+                Console.Read();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message + " [Exception]" );
+            }
         }
     }
 }
