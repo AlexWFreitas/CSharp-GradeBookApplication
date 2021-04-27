@@ -28,7 +28,7 @@ namespace GradeBook.GradeBooks
         public override char GetLetterGrade(double averageGrade)
         {
             if (Students.Count < 5)
-                throw new Exception("Ranked grading requires at least 5 students.");
+                throw new InvalidOperationException();
             
             int twentyPercent = Students.Count / 5 ;
             int countGradesAbove = 0;
