@@ -12,8 +12,8 @@ namespace GradeBookTests
 {
     public class CustomTestAlex
     {
-        [Fact(DisplayName = "Second 20 Percent Get An B @override-getlettergrade-d")]
-        public void SecondTwentyPercentTestLeftSide()
+        [Fact(DisplayName = "Second 20 Percent Lower Limit Gets An B")]
+        public void SecondTwentyPercentTestLowerLimit()
         {
             // Setup Test
             var rankedGradeBook = TestHelpers.GetUserType("GradeBook.GradeBooks.RankedGradeBook");
@@ -417,11 +417,11 @@ namespace GradeBookTests
 
             gradeBook.GetType().GetProperty("Students").SetValue(gradeBook, students);
 
-            Assert.True((char)method.Invoke(gradeBook, new object[] { 61 }) == 'B', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an D to students between the top 60 and 80% of the class.");
+            Assert.True((char)method.Invoke(gradeBook, new object[] { 61 }) == 'B', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an B to students between the top 20 and 40% of the class.");
         }
 
-        [Fact(DisplayName = "Number below 40th Percent Get a C @override-getlettergrade-d")]
-        public void SecondTwentyPercentTestLeftSideOver()
+        [Fact(DisplayName = "Second 20 Percent Lower Limit Under Gets a C")]
+        public void SecondTwentyPercentTestLowerLimitUnder()
         {
             // Setup Test
             var rankedGradeBook = TestHelpers.GetUserType("GradeBook.GradeBooks.RankedGradeBook");
@@ -825,12 +825,12 @@ namespace GradeBookTests
 
             gradeBook.GetType().GetProperty("Students").SetValue(gradeBook, students);
 
-            Assert.True((char)method.Invoke(gradeBook, new object[] { 60 }) == 'C', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an D to students between the top 60 and 80% of the class.");
+            Assert.True((char)method.Invoke(gradeBook, new object[] { 60 }) == 'C', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an C to students between the top 40 and 60% of the class.");
         }
 
 
-        [Fact(DisplayName = "Second 20 Percent Get a B @override-getlettergrade-d")]
-        public void SecondTwentyPercentTestRightSide()
+        [Fact(DisplayName = "Second 20 Percent Upper Limit Gets An B")]
+        public void SecondTwentyPercentTestUpperLimit()
         {
             // Setup Test
             var rankedGradeBook = TestHelpers.GetUserType("GradeBook.GradeBooks.RankedGradeBook");
@@ -1234,12 +1234,11 @@ namespace GradeBookTests
 
             gradeBook.GetType().GetProperty("Students").SetValue(gradeBook, students);
 
-            //Test if D is given when input grade is between the top 60 and 80%.
-            Assert.True((char)method.Invoke(gradeBook, new object[] { 80 }) == 'B', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an D to students between the top 60 and 80% of the class.");
+            Assert.True((char)method.Invoke(gradeBook, new object[] { 80 }) == 'B', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an B to students between the top 20 and 40% of the class.");
         }
 
-        [Fact(DisplayName = "Exact 20th Percent Get a A @override-getlettergrade-d")]
-        public void SecondTwentyPercentTestRightSideOver()
+        [Fact(DisplayName = "Exact 20th Percent Gets an A")]
+        public void SecondTwentyPercentTestUpperLimitOverByOne()
         {
             // Setup Test
             var rankedGradeBook = TestHelpers.GetUserType("GradeBook.GradeBooks.RankedGradeBook");
@@ -1643,7 +1642,7 @@ namespace GradeBookTests
 
             gradeBook.GetType().GetProperty("Students").SetValue(gradeBook, students);
 
-            Assert.True((char)method.Invoke(gradeBook, new object[] { 81 }) == 'A', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an D to students between the top 60 and 80% of the class.");
+            Assert.True((char)method.Invoke(gradeBook, new object[] { 81 }) == 'A', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an A to students in the top 20% of the class.");
         }
     }
 }
