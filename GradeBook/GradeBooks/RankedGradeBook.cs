@@ -32,27 +32,26 @@ namespace GradeBook.GradeBooks
                 if (Students.Count < 5)
                     throw new InvalidOperationException("Ranked grading requires at least 5 students.");
 
-                int twentyPercent = Students.Count / 5;
+                double twentyPercent = Math.Round((double)Students.Count * 0.2);
+                double fourtyPercent = Math.Round((double)Students.Count * 0.4);
+                double sixtyPercent = Math.Round((double)Students.Count * 0.6);
+                double eightyPercent = Math.Round((double)Students.Count * 0.8);
+
                 int countGradesAbove = 0;
-                int oneFifthsAbove = 0;
 
                 foreach (Student student in Students)
                 {
                     if (student.AverageGrade > averageGrade)
                         countGradesAbove++;
-
-                    if (countGradesAbove == twentyPercent)
-                        oneFifthsAbove++;
-                        countGradesAbove = 0;
                 }
 
-                if (oneFifthsAbove == 0)
+                if (countGradesAbove < twentyPercent)
                     return 'A';
-                else if (oneFifthsAbove == 1)
+                else if (countGradesAbove < fourtyPercent)
                     return 'B';
-                else if (oneFifthsAbove == 2)
+                else if (countGradesAbove < sixtyPercent)
                     return 'C';
-                else if (oneFifthsAbove == 3)
+                else if (countGradesAbove < eightyPercent)
                     return 'D';
                 else
                     return 'F';
