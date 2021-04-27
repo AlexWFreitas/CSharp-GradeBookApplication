@@ -42,10 +42,7 @@ namespace GradeBook.UserInterfaces
 
             var name = parts[1];
             var type = parts[2];
-            var isWeighted = false;
-
-            if (parts[3] == "weighted")
-                isWeighted = true;
+            var isWeighted = Boolean.Parse(parts[3]);
 
             if (type == "standard")
             {

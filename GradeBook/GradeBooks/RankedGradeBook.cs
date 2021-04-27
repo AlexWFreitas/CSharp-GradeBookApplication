@@ -75,32 +75,18 @@ namespace GradeBook.GradeBooks
 
         public override void CalculateStatistics()
         {
-            try
-            { 
             if (Students.Count < 5)
-                throw new InvalidOperationException("Ranked grading requires at least 5 students.");
+                Console.WriteLine("Ranked grading requires at least 5 students.");
             else
                 base.CalculateStatistics();
-            }
-            catch (InvalidOperationException)
-            {
-                throw;
-            }
 }
 
         public override void CalculateStudentStatistics(string name)
         {
-            try
-            {
             if (Students.Count < 5)
-                throw new InvalidOperationException("Ranked grading requires at least 5 students.");
+                Console.WriteLine("Ranked grading requires at least 5 students.");
             else
                 base.CalculateStudentStatistics(name);
-            }
-            catch (InvalidOperationException)
-            {
-                throw;
-            }
         }
 
         #endregion
