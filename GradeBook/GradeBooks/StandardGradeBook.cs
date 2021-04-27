@@ -11,7 +11,5 @@ namespace GradeBook.GradeBooks
         {
             Type = GradeBookType.Standard;
         }
-
-        GradeBookType Type;
     }
 }
