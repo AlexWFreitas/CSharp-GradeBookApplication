@@ -19,8 +19,8 @@ namespace GradeBook.GradeBooks
         /// <summary>
         /// Calculates the number of students that represents a percentage of the total count of the students collection.
         /// </summary>
-        /// <param name="percentage">Percentage of the total to be calculated (E.g. 100% = 100)</param>
-        /// <returns>Number of students that represents the total</returns>
+        /// <param name="percentage">Percentage of the total to be calculated (E.g. 20% = 20)</param>
+        /// <returns>Number of students that represents a percentage of the total</returns>
         private int CalcNumberFromTotalByPercentage(double percentage) => (int)(Math.Round(Students.Count * (percentage * 0.01)));
 
         /// <summary>
