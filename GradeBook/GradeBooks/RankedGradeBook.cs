@@ -17,14 +17,32 @@ namespace GradeBook.GradeBooks
         #region Methods
 
         /// <summary>
-        /// Count how many students is 20%. 
-        /// Trying to loop through the count and checking how many students have grade above mine. Reduce grade by 1 every 20%.
+        /// Calculates the number of students that represents a percentage of the total count of the students collection.
         /// </summary>
-        /// <param name="averageGrade">Compared grade</param>
-        /// <returns></returns>
+        /// <param name="percentage">Percentage of the total to be calculated (E.g. 100% = 100)</param>
+        /// <returns>Number of students that represents the total</returns>
+        private double CalcNPercentOfList(double percentage) => Math.Round(Students.Count * (percentage * 0.01));
+
+        /// <summary>
+        /// Calculates the number of students that have grade higher than the entered grade.
         /// </summary>
-        /// <param name="averageGrade">Grade to be evaluated by this method.</param>
-        /// <returns>The grade as a letter.</returns>
+        /// <param name="averageGrade">Grade to be compared</param>
+        /// <returns>Number of students with grades higher than the entered grade</returns>
+        private int CalcGradesAbove(double averageGrade)
+        {
+            int AboveGradeCounter = 0;
+            foreach (Student student in Students)
+                if (student.AverageGrade > averageGrade) AboveGradeCounter++;
+            return AboveGradeCounter;
+        }
+
+        /// <summary>
+        /// Calculates the letter grade that the entered average grade would receive compared to the average grade of all students.
+        /// <br></br>
+        /// Follows a rule of 0-20/20-40/40-60/60-80% top of the students average grades to assign a letter grade
+        /// </summary>
+        /// <param name="averageGrade">Average grade to rate</param>
+        /// <returns>Letter Grade from grading algorithm</returns>
         public override char GetLetterGrade(double averageGrade)
         {
             try
@@ -32,44 +50,27 @@ namespace GradeBook.GradeBooks
                 if (Students.Count < 5)
                     throw new InvalidOperationException("Ranked grading requires at least 5 students.");
 
-                double twentyPercent = Math.Round((double)Students.Count * 0.2);
-                double fourtyPercent = Math.Round((double)Students.Count * 0.4);
-                double sixtyPercent = Math.Round((double)Students.Count * 0.6);
-                double eightyPercent = Math.Round((double)Students.Count * 0.8);
+                int countGradesAbove = CalcGradesAbove(averageGrade);
 
-                int countGradesAbove = 0;
-
-                foreach (Student student in Students)
-                {
-                    if (student.AverageGrade > averageGrade)
-                        countGradesAbove++;
-                }
+                double twentyPercent = CalcNPercentOfList(20);
+                double fourtyPercent = CalcNPercentOfList(40);
+                double sixtyPercent = CalcNPercentOfList(60);
+                double eightyPercent = CalcNPercentOfList(80);
 
                 if (countGradesAbove < twentyPercent)
                     return 'A';
-                else if (countGradesAbove < fourtyPercent)
+                if (countGradesAbove < fourtyPercent)
                     return 'B';
-                else if (countGradesAbove < sixtyPercent)
+                if (countGradesAbove < sixtyPercent)
                     return 'C';
-                else if (countGradesAbove < eightyPercent)
+                if (countGradesAbove < eightyPercent)
                     return 'D';
-                else
-                    return 'F';
+                return 'F';
             }
             catch (InvalidOperationException)
-        /// <summary>
-        /// Generates an ordered list by Average Grade ( Descending Order )
-        /// </summary>
-        /// <returns></returns>
             {
                 throw;
             }
-
-        /// <summary>
-        /// Returns a number that represents 20% of the students count.
-        /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
         }
 
         public override void CalculateStatistics()

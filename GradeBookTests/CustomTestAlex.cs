@@ -1644,5 +1644,73 @@ namespace GradeBookTests
 
             Assert.True((char)method.Invoke(gradeBook, new object[] { 81 }) == 'A', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an A to students in the top 20% of the class.");
         }
+        [Fact(DisplayName = "Seven students - Grade Test for 0-20/20-40/40-60")]
+        public void SevenStudentsGradeCTest()
+        {
+            // Setup Test
+            var rankedGradeBook = TestHelpers.GetUserType("GradeBook.GradeBooks.RankedGradeBook");
+            Assert.True(rankedGradeBook != null, "`RankedGradeBook` wasn't found in the `GradeBooks.GradeBook` namespace.");
+
+            var constructor = rankedGradeBook.GetConstructors().FirstOrDefault();
+            var parameters = constructor.GetParameters();
+            object gradeBook = null;
+            if (parameters.Count() == 2 && parameters[0].ParameterType == typeof(string) && parameters[1].ParameterType == typeof(bool))
+                gradeBook = Activator.CreateInstance(rankedGradeBook, "Test GradeBook", true);
+            else if (parameters.Count() == 1 && parameters[0].ParameterType == typeof(string))
+                gradeBook = Activator.CreateInstance(rankedGradeBook, "Test GradeBook");
+
+            MethodInfo method = rankedGradeBook.GetMethod("GetLetterGrade");
+
+            //Setup successful conditions
+            var students = new List<Student>
+            {
+                new Student("john",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 1 }
+                },
+                new Student("jackie",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 2 }
+                },
+                new Student("tom",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 3 }
+                },
+                new Student("tony",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 4 }
+                },
+                new Student("jamie",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 5 }
+                },
+                new Student("john",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 6 }
+                },
+                new Student("jamie",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 7 }
+                },
+                new Student("jamie",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 8 }
+                },
+                new Student("jamie",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 9 }
+                },
+                new Student("jamie",StudentType.Standard,EnrollmentType.Campus)
+                {
+                    Grades = new List<double>{ 10 }
+                }
+            };
+
+            gradeBook.GetType().GetProperty("Students").SetValue(gradeBook, students);
+
+            Assert.True((char)method.Invoke(gradeBook, new object[] { 6 }) == 'C', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an C to students between the top 40% and 60% of the class.");
+            Assert.True((char)method.Invoke(gradeBook, new object[] { 8 }) == 'B', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an B to students between the top 20% and 40% of the class.");
+            Assert.True((char)method.Invoke(gradeBook, new object[] { 9 }) == 'A', "`GradeBook.GradeBooks.RankedGradeBook.GetLetterGrade` didn't give an A to students in the top 20% of the class.");
+        }
     }
 }
