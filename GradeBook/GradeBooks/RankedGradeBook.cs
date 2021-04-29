@@ -21,7 +21,7 @@ namespace GradeBook.GradeBooks
         /// </summary>
         /// <param name="percentage">Percentage of the total to be calculated (E.g. 100% = 100)</param>
         /// <returns>Number of students that represents the total</returns>
-        private int CalcPercentageOfListCountAsInt(double percentage) => (int)(Math.Round(Students.Count * (percentage * 0.01)));
+        private int CalcNumberFromTotalByPercentage(double percentage) => (int)(Math.Round(Students.Count * (percentage * 0.01)));
 
         /// <summary>
         /// Calculates the number of students that have grade higher than the entered grade.
@@ -52,10 +52,10 @@ namespace GradeBook.GradeBooks
 
                 int countGradesAbove = CalcGradesAbove(averageGrade);
 
-                int twentyPercent = CalcPercentageOfListCountAsInt(20);
-                int fourtyPercent = CalcPercentageOfListCountAsInt(40);
-                int sixtyPercent = CalcPercentageOfListCountAsInt(60);
-                int eightyPercent = CalcPercentageOfListCountAsInt(80);
+                int twentyPercent = CalcNumberFromTotalByPercentage(20);
+                int fourtyPercent = CalcNumberFromTotalByPercentage(40);
+                int sixtyPercent = CalcNumberFromTotalByPercentage(60);
+                int eightyPercent = CalcNumberFromTotalByPercentage(80);
 
                 if (countGradesAbove < twentyPercent)
                     return 'A';
